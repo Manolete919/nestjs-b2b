@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, UsePipes, ValidationPipe, Param } from '@nestjs/common';
 import { LessonService } from './lesson.service';
 import { CreateLessonDto } from './dto/create-lesson.dto';
+import { Lesson } from './lesson.entity';
 
 @Controller('lesson')
 export class LessonController {
@@ -11,12 +12,15 @@ export class LessonController {
     // Built-in validation pipe
     @UsePipes(ValidationPipe)
     testCreate(@Body() createLesson: CreateLessonDto){
-        
-
         this.lessonService.createLesson(createLesson);
         return {ok:'ok'}
     }
 
+    @Get('/:id')
+    getLessonById(@Param('id') id: string){
+        return this.lessonService.getLessonById(id);
+    }
 
+ 
 
 }
