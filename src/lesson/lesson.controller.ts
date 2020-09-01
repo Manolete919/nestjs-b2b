@@ -1,14 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { LessonService } from './lesson.service';
+import { CreateLessonDto } from './dto/create-lesson.dto';
 
 @Controller('lesson')
 export class LessonController {
 
     constructor(private lessonService: LessonService){}
 
-    @Get()
-    testCreate(){
-        this.lessonService.createLesson('AAAA',new Date().toISOString(),new Date().toISOString());
+    @Post('/create')
+    testCreate(@Body() createLesson: CreateLessonDto){
+        
+
+        this.lessonService.createLesson(createLesson);
         return {ok:'ok'}
     }
 
