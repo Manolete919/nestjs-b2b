@@ -21,6 +21,11 @@ export class LessonController {
         return this.lessonService.getLessonById(id);
     }
 
+    @Get('/all/:userId')
+    getLessonsByUserId(@Param('userId') userId: string){
+        return this.lessonService.getLessonsByUserId(userId);
+    }
+
 
 
  

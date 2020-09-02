@@ -5,12 +5,13 @@ import { Lesson } from './lesson.entity';
 import { LessonController } from './lesson.controller';
 import { StudentService } from 'src/student/student.service';
 import { Student } from 'src/student/student.entity';
+import { LessonRepository } from './lesson.repository';
 
 
 // Se necesita definir TypeOrm. This allows us to inject our repository for our lessons.
 // When we do it in the submodules is going to be for feature
 @Module({
-  imports: [TypeOrmModule.forFeature([Lesson,Student])],
+  imports: [TypeOrmModule.forFeature([LessonRepository,Student])],
   providers: [LessonService,StudentService],
   controllers: [LessonController]
 })

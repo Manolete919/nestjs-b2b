@@ -1,17 +1,19 @@
 import { Injectable, NotFoundException, ConflictException, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Lesson } from './lesson.entity';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 import {v4  as uuid } from 'uuid';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { Student } from 'src/student/student.entity';
+import { LessonRepository } from './lesson.repository';
 
 @Injectable()
 export class LessonService {
     // inject the repository
 
     constructor(
-        @InjectRepository(Lesson) private lessonRepository: Repository<Lesson>,
+        // @InjectRepository(Lesson) private lessonRepository: Repository<Lesson>,
+        @InjectRepository(LessonRepository) private lessonRepository: LessonRepository,
         @InjectRepository(Student) private studentRepository: Repository<Student>
     ){ }
 
@@ -52,5 +54,12 @@ export class LessonService {
 
         return found;
 
+
+        
+    }
+
+    async getLessonsByUserId(id: string){
+        const lessons = await this.lessonRepository.getLessonsByUserId(id);
+        return lessons;
     }
 }
