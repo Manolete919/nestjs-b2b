@@ -2,7 +2,7 @@ import {IsNotEmpty, IsDateString} from  'class-validator';
 export class CreateLessonDto {
     
     @IsNotEmpty()
-    userid: string;
+    userId: string;
     @IsNotEmpty()
     name: string;
     @IsDateString()

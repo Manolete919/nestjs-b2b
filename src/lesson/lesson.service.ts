@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Lesson } from './lesson.entity';
 import { Repository } from 'typeorm';
@@ -18,9 +18,9 @@ export class LessonService {
 
     async createLesson(createLesson: CreateLessonDto) : Promise<Lesson>{
 
-        const {userid,name,startDate,endDate} = createLesson;
+        const {userId,name,startDate,endDate} = createLesson;
 
-        const student = await this.studentRepository.findOne({id:userid});
+        const student = await this.studentRepository.findOne({id:userId});
 
         const lesson = this.lessonRepository.create({
             id: uuid(),
@@ -31,11 +31,17 @@ export class LessonService {
         });
 
         
-        return await this.lessonRepository.save(lesson);
+        await this.lessonRepository.save(lesson);
+         
+      
+        
+        return lesson;
 
     }
 
     async getLessonById(id: string): Promise<Lesson>{
+
+        
 
         // { id } , where there is another fild, by default it picks _id
         const found = await this.lessonRepository.findOne({id});

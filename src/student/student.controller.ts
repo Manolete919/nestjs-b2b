@@ -1,4 +1,4 @@
-import { Controller, Body, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Body, Post, UsePipes, ValidationPipe, Param, Get } from '@nestjs/common';
 import { CreateStudentDto } from './create-student.input';
 import { StudentService } from './student.service';
 
@@ -14,5 +14,10 @@ export class StudentController {
         return this.studentService.createStudent(createStudent);       
     }
 
+
+    @Get('/:id')
+    getLessonById(@Param('id') id: string){
+        return this.studentService.getStudentById(id);
+    }
 
 }

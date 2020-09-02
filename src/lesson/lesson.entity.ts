@@ -1,9 +1,9 @@
-import { Entity, PrimaryColumn, Column, ObjectIdColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, Column, ObjectIdColumn, ManyToOne, JoinColumn, JoinTable, BaseEntity } from "typeorm";
 import { type } from "os";
 import { Student } from "src/student/student.entity";
 
 @Entity()
-export class Lesson {
+export class Lesson extends BaseEntity {
     
     @ObjectIdColumn()
     _id: string;
@@ -20,9 +20,12 @@ export class Lesson {
     @Column()
     endDate: string;
 
-    @ManyToOne(type => Student, student => student.lessons, {eager: false})
+    @ManyToOne(type => Student, student => student.lessons, {eager: true})
+    @JoinColumn()
+    //@JoinTable()
     student: Student;
-
+ 
+ 
 
 
 }

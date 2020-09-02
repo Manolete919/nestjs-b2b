@@ -12,8 +12,8 @@ export class LessonController {
     // Built-in validation pipe
     @UsePipes(ValidationPipe)
     testCreate(@Body() createLesson: CreateLessonDto){
-        this.lessonService.createLesson(createLesson);
-        return {ok:'ok'}
+        return this.lessonService.createLesson(createLesson);
+         
     }
 
     @Get('/:id')
@@ -21,7 +21,7 @@ export class LessonController {
         return this.lessonService.getLessonById(id);
     }
 
-    
+
 
  
 

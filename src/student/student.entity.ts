@@ -1,7 +1,8 @@
-import { Entity, ObjectIdColumn, PrimaryColumn, Column, OneToMany } from "typeorm";
+import { Entity, ObjectIdColumn, PrimaryColumn, Column, OneToMany, Unique, JoinColumn } from "typeorm";
 import { Lesson } from "src/lesson/lesson.entity";
 
 @Entity()
+@Unique(['id'])
 export class Student {
     @ObjectIdColumn()
     _id: string;
@@ -15,7 +16,8 @@ export class Student {
     @Column()
     lastName: string;
 
-    @OneToMany(type => Lesson, lesson => lesson.id, {eager: true})
+    @OneToMany(type => Lesson, lesson => lesson.student, {eager: false})
+
     lessons: Lesson[];
 
 }

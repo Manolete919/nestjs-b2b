@@ -12,8 +12,11 @@ import { Student } from './student/student.entity';
     url: 'mongodb://localhost/school',
     synchronize: true,
     useUnifiedTopology: true,
-    entities: [Lesson, Student]
+    entities: [Lesson, Student],
+    
+    
   })
     ,LessonModule, StudentModule],
 })
+
 export class AppModule {}
